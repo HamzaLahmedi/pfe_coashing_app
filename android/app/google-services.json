@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "675610915074",
+    "project_id": "pfe-coashing",
+    "storage_bucket": "pfe-coashing.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675610915074:android:c5bd0fa53f15357063921b",
+        "android_client_info": {
+          "package_name": "com.example.pfe_coashing_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAouoskQNAjalSoNMIZuQ84R_hKGUK9bv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
