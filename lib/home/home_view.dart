@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
-import 'package:pfe_coashing_app/core/widgets/custom_elevated_button.dart';
 import 'package:pfe_coashing_app/firebase/auth.dart';
 import 'package:pfe_coashing_app/auth/sign_in_view.dart';
 
@@ -12,22 +12,33 @@ class HomeView extends StatelessWidget {
     final FirebaseAuthService auth = FirebaseAuthService();
 
     return Scaffold(
+      backgroundColor: AppColors.darkBackground,
       appBar: AppBar(
-        title: Text('Home'),
+        backgroundColor: AppColors.darkBackground,
+        title: Text(
+          'Home',
+          style: GoogleFonts.montserrat(
+            color: AppColors.textPrimary,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         //just trying to add a sign out button to check functionality works or not :))
         actions: [
-          CustomElevatedButton(
-            text: "Sign Out",
+          IconButton(
             onPressed: () async {
               final navigator = Navigator.of(context);
               await auth.signOut();
               navigator.pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => SignInView()),
+                MaterialPageRoute(builder: (context) => const SignInView()),
                 (route) => false,
               );
             },
-            color: AppColors.error,
-          ),
+            icon: Icon(
+              Icons.logout,
+              color: AppColors.error,
+            ),
+          )
         ],
       ),
       body: Center(

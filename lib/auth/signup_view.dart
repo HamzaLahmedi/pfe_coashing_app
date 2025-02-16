@@ -38,7 +38,7 @@ class _SignupViewState extends State<SignupView> {
     final double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Color(0xff1E1E1E),
+      backgroundColor: AppColors.darkBackground,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

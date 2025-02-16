@@ -4,7 +4,7 @@ class AppColors {
   // Primary & Background Colors
   static const Color primary = Color(0xFF7FC6E0); // Main brand color (Light Blue)
   static const Color background = Color(0xFF000000); // Black background
-  static const Color darkBackground = Color(0xFF111111); // Darker Black  
+  static const Color darkBackground = Color(0XFF1E1E1E); // Darker Black  
 
   // Text Colors
   static const Color textPrimary = Color(0xFFD1EAF4); // Light Blue Text
