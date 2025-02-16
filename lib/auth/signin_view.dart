@@ -165,44 +165,47 @@ class _SignInViewState extends State<SignInView> {
     );
   }
 
-  void _signIn() async {
-    String email = _emailController.text.trim();
-    String password = _passwordController.text.trim();
+ void _signIn() async {
+  String email = _emailController.text.trim();
+  String password = _passwordController.text.trim();
 
-    // Vérifier si tous les champs sont remplis
-    if (email.isEmpty || password.isEmpty) {
-      showToast(message: "Veuillez remplir tous les champs.");
-      return;
-    }
-
-    // Vérifier si l'email est valide
-    if (!isValidEmail(email)) {
-      showToast(message: "Veuillez saisir une adresse e-mail valide.");
-      return;
-    }
-
-    // Appeler la méthode signInWithEmailAndPassword
-    User? user = await _auth.signInWithEmailAndPassword(email, password);
-
-    if (user != null) {
-      // Créez ou mettez à jour le document utilisateur dans Firestore
-      await _firestore.collection('users').doc(user.uid).set({
-        'email': user.email,
-        'lastSignInTime': user.metadata.lastSignInTime,
-      }, SetOptions(merge: true));
-
-      showToast(message: "Utilisateur connecté avec succès");
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => HomeView()),
-        (route) => false,
-      );
-    } else {
-      showToast(
-          message:
-              "Une erreur s'est produite lors de la connexion de l'utilisateur.");
-    }
+  // Vérifier si tous les champs sont remplis
+  if (email.isEmpty || password.isEmpty) {
+    showToast(message: "Veuillez remplir tous les champs.");
+    return;
   }
+
+  // Vérifier si l'email est valide
+  if (!isValidEmail(email)) {
+    showToast(message: "Veuillez saisir une adresse e-mail valide.");
+    return;
+  }
+
+  // Appeler la méthode signInWithEmailAndPassword
+  User? user = await _auth.signInWithEmailAndPassword(email, password);
+
+  if (user != null) {
+    // Créez ou mettez à jour le document utilisateur dans Firestore
+    await _firestore.collection('users').doc(user.uid).set({
+      'email': user.email,
+      'lastSignInTime': user.metadata.lastSignInTime,
+    }, SetOptions(merge: true));
+
+    showToast(message: "Utilisateur connecté avec succès");
+
+    if (!mounted) return; // Check if the widget is still mounted
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => HomeView()),
+      (route) => false,
+    );
+  } else {
+    showToast(
+      message: "Une erreur s'est produite lors de la connexion de l'utilisateur.",
+    );
+  }
+}
 
   bool isValidEmail(String email) {
     // Utiliser une expression régulière pour valider l'adresse e-mail

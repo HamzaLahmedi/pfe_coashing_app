@@ -8,7 +8,7 @@ void main() async {
     await Firebase.initializeApp();
     print("Firebase initialized: ${Firebase.app().options}");
   } catch (e) {
-    print("Error initializing Firebase Emmmmmm: $e");
+    print("Error initializing Firebase : $e");
   }
   runApp(PfeCoashingApp());
 }

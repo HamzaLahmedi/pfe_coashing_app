@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pfe_coashing_app/core/utils/color.dart'; // Import AppColors
 
-
-void showToast({required String message}){
+void showToast({required String message}) {
   Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.blue,
-      textColor: Colors.white,
-      fontSize: 16.0
+    msg: message,
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 1,
+    backgroundColor: AppColors.primary, // Adjust background color to fit app design
+    textColor: AppColors.textPrimary, // Adjust text color to fit app design
+    fontSize: 16.0,
   );
 }
