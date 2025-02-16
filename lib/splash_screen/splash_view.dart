@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pfe_coashing_app/auth/sign_in_view.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
-import 'package:pfe_coashing_app/home/home_view.dart';
+import 'package:pfe_coashing_app/home/navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SplashView extends StatefulWidget {
@@ -23,7 +23,7 @@ class _SplashViewState extends State<SplashView> {
         if (user != null) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const HomeView()),
+            MaterialPageRoute(builder: (context) => const Navigation()),
           );
         } else {
           Navigator.pushReplacement(

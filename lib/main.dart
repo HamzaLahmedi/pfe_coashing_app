@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pfe_coashing_app/auth/sign_in_view.dart';
 import 'package:pfe_coashing_app/splash_screen/splash_view.dart';
-import 'package:pfe_coashing_app/home/home_view.dart';
+import 'package:pfe_coashing_app/home/navigation.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_progress_indicator.dart';
 
 void main() async {
@@ -41,7 +41,7 @@ class AuthWrapper extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CustomProgressIndicator(); // Show custom progress indicator while waiting for auth state
         } else if (snapshot.hasData) {
-          return const HomeView(); // User is signed in, show home screen
+          return const Navigation(); // User is signed in, show home screen
         } else {
           return const SignInView(); // User is not signed in, show sign-in screen
         }

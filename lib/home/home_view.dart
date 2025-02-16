@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pfe_coashing_app/auth/sign_in_view.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
 import 'package:pfe_coashing_app/firebase/auth.dart';
-import 'package:pfe_coashing_app/auth/sign_in_view.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
   @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  @override
   Widget build(BuildContext context) {
     final FirebaseAuthService auth = FirebaseAuthService();
-
-    return Scaffold(
+    return  Scaffold(
       backgroundColor: AppColors.darkBackground,
       appBar: AppBar(
         backgroundColor: AppColors.darkBackground,
@@ -19,8 +23,8 @@ class HomeView extends StatelessWidget {
           'Home',
           style: GoogleFonts.montserrat(
             color: AppColors.textPrimary,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+            fontSize: 22,
+            fontWeight: FontWeight.normal,
           ),
         ),
         //just trying to add a sign out button to check functionality works or not :))
@@ -37,12 +41,20 @@ class HomeView extends StatelessWidget {
             icon: Icon(
               Icons.logout,
               color: AppColors.error,
+              size: 22,
             ),
           )
         ],
-      ),
+        
+      ) ,
       body: Center(
-        child: Text('Welcome to PFE Coashing App'),
+        child: Text(
+          'This is Home View',
+          style: GoogleFonts.montserrat(
+            color: AppColors.textPrimary,
+            fontSize: 18,
+          ),
+        ),
       ),
     );
   }

@@ -8,7 +8,7 @@ import 'package:pfe_coashing_app/core/utils/toast.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_elevated_button.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_text_field.dart';
 import 'package:pfe_coashing_app/firebase/auth.dart';
-import 'package:pfe_coashing_app/home/home_view.dart';
+import 'package:pfe_coashing_app/home/navigation.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -196,7 +196,7 @@ class _SignInViewState extends State<SignInView> {
 
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const HomeView()),
+        MaterialPageRoute(builder: (context) => const Navigation()),
         (route) => false,
       );
     } else {

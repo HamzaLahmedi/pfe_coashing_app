@@ -8,7 +8,7 @@ import 'package:pfe_coashing_app/core/utils/toast.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_elevated_button.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_text_field.dart';
 import 'package:pfe_coashing_app/firebase/auth.dart';
-import 'package:pfe_coashing_app/home/home_view.dart';
+import 'package:pfe_coashing_app/home/navigation.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({super.key});
@@ -200,7 +200,7 @@ class _SignupViewState extends State<SignupView> {
         if (!mounted) return; // Check if the widget is still mounted
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const HomeView()),
+          MaterialPageRoute(builder: (context) => const Navigation()),
           (route) => false,
         );
       } else {
