@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -9,7 +10,7 @@ class FirebaseAuthService {
           email: email, password: password);
       return credential.user;
     } catch (e) {
-      print("Some error occurred");
+      debugPrint("Error occurred during sign-up: $e");
     }
     return null;
   }
@@ -20,7 +21,7 @@ class FirebaseAuthService {
           email: email, password: password);
       return credential.user;
     } catch (e) {
-      print("Some error occurred");
+      debugPrint("Error occurred during sign-in: $e");
     }
     return null;
   }
@@ -28,9 +29,9 @@ class FirebaseAuthService {
   Future<void> signOut() async {
     try {
       await _auth.signOut();
-      print("Déconnexion réussie !");
+      debugPrint("Successfully signed out.");
     } catch (e) {
-      print("Erreur lors de la déconnexion : $e");
+      debugPrint("Error occurred during sign-out: $e");
     }
   }
 }

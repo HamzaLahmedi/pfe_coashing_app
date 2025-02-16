@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pfe_coashing_app/auth/signin_view.dart';
+import 'package:pfe_coashing_app/auth/sign_in_view.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
+import 'package:pfe_coashing_app/home/home_view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -11,19 +13,28 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-   @override
+  @override
   void initState() {
     super.initState();
-    // Delay for 2 seconds, then navigate to Sign In
+    // Delay for 2 seconds, then navigate to the appropriate screen
     Future.delayed(const Duration(seconds: 2), () {
-  if (mounted) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const SignInView()),
-    );
+      if (mounted) {
+        User? user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeView()),
+          );
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const SignInView()),
+          );
+        }
+      }
+    });
   }
-});
-  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

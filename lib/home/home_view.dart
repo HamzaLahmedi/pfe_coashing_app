@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_elevated_button.dart';
 import 'package:pfe_coashing_app/firebase/auth.dart';
-import 'package:pfe_coashing_app/auth/signin_view.dart';
+import 'package:pfe_coashing_app/auth/sign_in_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -19,9 +19,9 @@ class HomeView extends StatelessWidget {
           CustomElevatedButton(
             text: "Sign Out",
             onPressed: () async {
+              final navigator = Navigator.of(context);
               await auth.signOut();
-              Navigator.pushAndRemoveUntil(
-                context,
+              navigator.pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => SignInView()),
                 (route) => false,
               );

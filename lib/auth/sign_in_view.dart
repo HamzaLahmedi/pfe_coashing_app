@@ -33,7 +33,6 @@ class _SignInViewState extends State<SignInView> {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
-    final double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: Color(0xff1E1E1E),
@@ -94,7 +93,7 @@ class _SignInViewState extends State<SignInView> {
                   height: 8,
                 ),
                 Text(
-                  "Forget your password ?",
+                  "Forget your password?",
                   style: GoogleFonts.montserrat(
                     color: AppColors.textSecondary,
                     fontSize: 10,
@@ -127,7 +126,7 @@ class _SignInViewState extends State<SignInView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don't have an account ?",
+                      "Don't have an account?",
                       style: GoogleFonts.montserrat(
                         color: AppColors.white,
                         fontSize: 16,
@@ -165,50 +164,50 @@ class _SignInViewState extends State<SignInView> {
     );
   }
 
- void _signIn() async {
-  String email = _emailController.text.trim();
-  String password = _passwordController.text.trim();
+  void _signIn() async {
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
 
-  // Vérifier si tous les champs sont remplis
-  if (email.isEmpty || password.isEmpty) {
-    showToast(message: "Veuillez remplir tous les champs.");
-    return;
+    // Check if all fields are filled
+    if (email.isEmpty || password.isEmpty) {
+      showToast(message: "Please fill in all fields.");
+      return;
+    }
+
+    // Check if the email is valid
+    if (!isValidEmail(email)) {
+      showToast(message: "Please enter a valid email address.");
+      return;
+    }
+
+    // Call the signInWithEmailAndPassword method
+    User? user = await _auth.signInWithEmailAndPassword(email, password);
+
+    if (user != null) {
+      // Create or update the user document in Firestore
+      await _firestore.collection('users').doc(user.uid).set({
+        'email': user.email,
+        'lastSignInTime': user.metadata.lastSignInTime,
+      }, SetOptions(merge: true));
+
+      showToast(message: "User successfully signed in");
+
+      if (!mounted) return; // Check if the widget is still mounted
+
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeView()),
+        (route) => false,
+      );
+    } else {
+      showToast(
+        message: "An error occurred while signing in the user.",
+      );
+    }
   }
-
-  // Vérifier si l'email est valide
-  if (!isValidEmail(email)) {
-    showToast(message: "Veuillez saisir une adresse e-mail valide.");
-    return;
-  }
-
-  // Appeler la méthode signInWithEmailAndPassword
-  User? user = await _auth.signInWithEmailAndPassword(email, password);
-
-  if (user != null) {
-    // Créez ou mettez à jour le document utilisateur dans Firestore
-    await _firestore.collection('users').doc(user.uid).set({
-      'email': user.email,
-      'lastSignInTime': user.metadata.lastSignInTime,
-    }, SetOptions(merge: true));
-
-    showToast(message: "Utilisateur connecté avec succès");
-
-    if (!mounted) return; // Check if the widget is still mounted
-
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => HomeView()),
-      (route) => false,
-    );
-  } else {
-    showToast(
-      message: "Une erreur s'est produite lors de la connexion de l'utilisateur.",
-    );
-  }
-}
 
   bool isValidEmail(String email) {
-    // Utiliser une expression régulière pour valider l'adresse e-mail
+    // Use a regular expression to validate the email address
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     return emailRegex.hasMatch(email);
   }

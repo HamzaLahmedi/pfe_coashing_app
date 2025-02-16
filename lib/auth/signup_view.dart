@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pfe_coashing_app/auth/signin_view.dart';
+import 'package:pfe_coashing_app/auth/sign_in_view.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
 import 'package:pfe_coashing_app/core/utils/toast.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_elevated_button.dart';
@@ -172,17 +172,17 @@ class _SignupViewState extends State<SignupView> {
     String password = _passwordController.text.trim();
 
     if (username.isEmpty || email.isEmpty || password.isEmpty) {
-      showToast(message: "Veuillez remplir tous les champs.");
+      showToast(message: "Please fill in all fields.");
       return;
     }
 
     if (!isValidEmail(email)) {
-      showToast(message: "Veuillez saisir une adresse e-mail valide.");
+      showToast(message: "Please enter a valid email address.");
       return;
     }
 
     if (password.length < 6) {
-      showToast(message: "Le mot de passe doit contenir au moins 6 caractères.");
+      showToast(message: "Password must be at least 6 characters long.");
       return;
     }
 
@@ -196,18 +196,18 @@ class _SignupViewState extends State<SignupView> {
           'createdAt': FieldValue.serverTimestamp(),
         });
 
-        showToast(message: "Utilisateur créé avec succès");
+        showToast(message: "User successfully created");
         if (!mounted) return; // Check if the widget is still mounted
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => HomeView()),
+          MaterialPageRoute(builder: (context) => const HomeView()),
           (route) => false,
         );
       } else {
-        showToast(message: "Erreur lors de la création de l'utilisateur.");
+        showToast(message: "Error creating user.");
       }
     } catch (e) {
-      showToast(message: "Erreur : ${e.toString()}");
+      showToast(message: "Error: ${e.toString()}");
     }
   }
 
