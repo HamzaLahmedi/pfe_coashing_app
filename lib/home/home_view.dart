@@ -22,7 +22,7 @@ class _HomeViewState extends State<HomeView> {
         title: Text(
           'Home',
           style: GoogleFonts.montserrat(
-            color: AppColors.textPrimary,
+          //  color: AppColors.textPrimary,
             fontSize: 22,
             fontWeight: FontWeight.normal,
           ),
@@ -40,7 +40,7 @@ class _HomeViewState extends State<HomeView> {
             },
             icon: Icon(
               Icons.logout,
-              color: AppColors.error,
+          //    color: AppColors.error,
               size: 22,
             ),
           )
@@ -51,7 +51,7 @@ class _HomeViewState extends State<HomeView> {
         child: Text(
           'This is Home View',
           style: GoogleFonts.montserrat(
-            color: AppColors.textPrimary,
+         //   color: AppColors.textPrimary,
             fontSize: 18,
           ),
         ),

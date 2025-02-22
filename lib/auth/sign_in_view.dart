@@ -35,8 +35,18 @@ class _SignInViewState extends State<SignInView> {
     final double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: AppColors.darkBackground,
-      body: SafeArea(
+        backgroundColor: AppColors.lightBackground,
+        body: Column(children: [
+          Center(
+            child: Image.asset(
+              "assets/images/icon_sign.png",
+            ),
+          ),
+        ]));
+  }
+
+/*
+SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 40),
@@ -161,9 +171,7 @@ class _SignInViewState extends State<SignInView> {
           ),
         ),
       ),
-    );
-  }
-
+*/
   void _signIn() async {
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();

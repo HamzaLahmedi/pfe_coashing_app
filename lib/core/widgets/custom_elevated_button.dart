@@ -12,24 +12,33 @@ final Color? color;
 final Color? textColor;
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-            onPressed: onPressed,
-            style: ElevatedButton.styleFrom(
-              backgroundColor:color ??  AppColors.primary , // Light blue color
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8), // Rounded corners
-              ),
-              elevation: 2, // Slight shadow for depth
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+        decoration: BoxDecoration(
+          color: color ?? AppColors.buttonPrimary,
+          borderRadius: BorderRadius.circular(8),
+          /*boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 4,
+              offset: Offset(0, 2), // changes position of shadow
             ),
-            child: Text(
-              text,
-              style: GoogleFonts.montserrat(
-                color: textColor ?? AppColors.white, // White text
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
+          ],*/
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: GoogleFonts.montserrat(
+              color: textColor ?? Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
             ),
-            
-          );
+          ),
+        ),
+      ),
+    );
   }
 }

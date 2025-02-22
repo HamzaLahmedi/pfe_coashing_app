@@ -31,14 +31,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
           obscureText: widget.obscureText? _isObscured : false, // Hide text
           style: TextStyle(color: Colors.white), // Text color
           decoration: InputDecoration(
-            prefixIcon: Icon(widget.icon, color: AppColors.white,), // Light blue icon
+            prefixIcon: Icon(widget.icon, color: Colors.white,), // Light blue icon
             hintText: widget.hintText,
-            hintStyle: TextStyle(color: AppColors.white),
+            hintStyle: TextStyle(color: Colors.white),
             suffixIcon: widget.obscureText
             ? IconButton(
                 icon: Icon(
                   _isObscured ? Icons.visibility_off : Icons.visibility,
-                  color: AppColors.white,
+                  color: Colors.white,
                 ),
                 onPressed: () {
                   setState(() {
@@ -49,13 +49,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
             : null,
              // Greyish blue text
             border: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.primary), // Bottom border only
+            //  borderSide: BorderSide(color: AppColors.primary), // Bottom border only
             ),
             enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.primary, width: 2), // Default bottom border
+           //   borderSide: BorderSide(color: AppColors.primary, width: 2), // Default bottom border
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: AppColors.textPrimary, width: 2), // Highlighted bottom border
+            //  borderSide: BorderSide(color: AppColors.textPrimary, width: 2), // Highlighted bottom border
             ),
             contentPadding: EdgeInsets.symmetric(vertical: 15),
           ),

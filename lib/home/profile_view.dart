@@ -14,7 +14,7 @@ class ProfileView extends StatelessWidget {
         title: Text(
           'Profile',
           style: GoogleFonts.montserrat(
-            color: AppColors.textPrimary,
+         //   color: AppColors.textPrimary,
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -24,7 +24,7 @@ class ProfileView extends StatelessWidget {
         child: Text(
           'This is Profile View',
           style: GoogleFonts.montserrat(
-            color: AppColors.textPrimary,
+          //  color: AppColors.textPrimary,
             fontSize: 18,
           ),
         ),

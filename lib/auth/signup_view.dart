@@ -53,7 +53,7 @@ class _SignupViewState extends State<SignupView> {
                   child: Text(
                     "FIT CONNECT",
                     style: GoogleFonts.montserrat(
-                      color: AppColors.textPrimary,
+                    //  color: AppColors.textPrimary,
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                     ),
@@ -116,8 +116,8 @@ class _SignupViewState extends State<SignupView> {
                   width: double.infinity,
                   child: CustomElevatedButton(
                     text: " G Google ",
-                    textColor: AppColors.primary,
-                    color: AppColors.white,
+                  //  textColor: AppColors.primary,
+                  //  color: AppColors.white,
                     onPressed: () {},
                   ),
                 ),
@@ -130,7 +130,7 @@ class _SignupViewState extends State<SignupView> {
                     Text(
                       "Already have an account?",
                       style: GoogleFonts.montserrat(
-                        color: AppColors.white,
+                      //  color: AppColors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
                       ),
@@ -147,7 +147,7 @@ class _SignupViewState extends State<SignupView> {
                       child: Text(
                         "Sign In",
                         style: GoogleFonts.montserrat(
-                          color: AppColors.primary,
+                       //   color: AppColors.primary,
                           fontSize: 16,
                           fontWeight: FontWeight.normal,
                         ),

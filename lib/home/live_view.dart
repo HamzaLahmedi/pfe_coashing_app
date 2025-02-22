@@ -14,7 +14,7 @@ class LiveView extends StatelessWidget {
         title: Text(
           'Live Sessions',
           style: GoogleFonts.montserrat(
-            color: AppColors.textPrimary,
+        //    color: AppColors.textPrimary,
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -24,7 +24,7 @@ class LiveView extends StatelessWidget {
         child: Text(
           'This is Live Sessions',
           style: GoogleFonts.montserrat(
-            color: AppColors.textPrimary,
+         //   color: AppColors.textPrimary,
             fontSize: 18,
           ),
         ),

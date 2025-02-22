@@ -8,7 +8,7 @@ void showToast({required String message}) {
     gravity: ToastGravity.BOTTOM,
     timeInSecForIosWeb: 1,
     backgroundColor: AppColors.darkBackground, // Adjust background color to fit app design
-    textColor: AppColors.textPrimary, // Adjust text color to fit app design
+   // textColor: AppColors.textPrimary, // Adjust text color to fit app design
     fontSize: 16.0,
   );
 }

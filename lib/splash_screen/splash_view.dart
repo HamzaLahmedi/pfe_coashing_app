@@ -14,7 +14,7 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   @override
-  void initState() {
+ void initState() {
     super.initState();
     // Delay for 2 seconds, then navigate to the appropriate screen
     Future.delayed(const Duration(seconds: 2), () {
@@ -37,16 +37,8 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xff111111), Color(0xff2A2A2A)],
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
+    return  Scaffold(
+        backgroundColor: AppColors.lightBackground,
         body: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -54,16 +46,16 @@ class _SplashViewState extends State<SplashView> {
               Text(
                 "FIT",
                 style: GoogleFonts.montserrat(
-                  color: AppColors.textPrimary,
+                 color: AppColors.primaryColor,
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Image.asset("assets/images/heart-rate.png"),
+              Image.asset("assets/images/icon_sign.png"),
               Text(
                 "CONNECT",
                 style: GoogleFonts.montserrat(
-                  color: AppColors.textPrimary,
+                  color: AppColors.primaryColor,
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
                 ),
@@ -71,7 +63,7 @@ class _SplashViewState extends State<SplashView> {
             ],
           ),
         ),
-      ),
-    );
+      );
+    
   }
 }

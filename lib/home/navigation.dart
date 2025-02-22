@@ -30,15 +30,15 @@ class _NavigationState extends State<Navigation> {
         items: [
           Icon(
             Icons.live_tv_outlined,
-            color: AppColors.white,
+       //     color: AppColors.white,
           ),
           Icon(
             Icons.home,
-            color: AppColors.white,
+         //   color: AppColors.white,
           ),
           Icon(
             Icons.person,
-            color: AppColors.white,
+        //    color: AppColors.white,
           ),
         ],
          onTap: (index) {
@@ -47,7 +47,7 @@ class _NavigationState extends State<Navigation> {
           });
         },
         backgroundColor: AppColors.darkBackground,
-        color: AppColors.primary,
+    //    color: AppColors.primary,
         
         //buttonBackgroundColor: AppColors.primary,
         height: 60,
