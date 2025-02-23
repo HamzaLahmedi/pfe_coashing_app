@@ -35,11 +35,15 @@ class _SignInViewState extends State<SignInView> {
     final double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-        backgroundColor: AppColors.lightBackground,
-        body: SafeArea(
+      backgroundColor: AppColors.lightBackground,
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14),
             child: Column(children: [
+              SizedBox(
+                height: height * 0.05,
+              ),
               Center(
                 child: Image.asset(
                   "assets/images/icon_sign.png",
@@ -89,7 +93,7 @@ class _SignInViewState extends State<SignInView> {
               SizedBox(
                 height: 22,
               ),
-               CustomTextField(
+              CustomTextField(
                 hintText: "Enter your password",
                 icon: Icons.lock_outline,
                 controller: _passwordController,
@@ -102,13 +106,100 @@ class _SignInViewState extends State<SignInView> {
               ),
               CustomElevatedButton(
                 text: "Sign In",
-                onPressed: (){},
+                onPressed: () {},
                 color: AppColors.buttonPrimary,
                 textColor: Colors.white,
-              )
+              ),
+              SizedBox(
+                height: 28,
+              ),
+              GestureDetector(
+                onTap: () {
+                  // Handle forgot password
+                },
+                child: Text(
+                  "Forgot Password?",
+                  style: GoogleFonts.montserrat(
+                    color: AppColors.primaryColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              SizedBox(height: 32.0),
+              
+              // Sign Up Link
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account? ",
+                    style: GoogleFonts.montserrat(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // Navigate to Sign Up screen
+                    },
+                    child: Text(
+                      "Sign Up",
+                      style: GoogleFonts.montserrat(
+                        color: AppColors.primaryColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                ],
+              ),
+             /* SizedBox(
+                height: 40,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SocialIconsSignIn(
+                    icon: Image.asset(
+                      "assets/images/google_icon.png",
+                      width: 36.0,
+                      height: 36.0,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  SocialIconsSignIn(
+                    icon: Icon(
+                      Icons.facebook,
+                      color: Colors.black87,
+                      size: 36.0,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  SocialIconsSignIn(
+                    icon: Icon(
+                      Icons.apple,
+                      color: Colors.black87,
+                      size: 36.0,
+                    ),
+                  ),
+                ],
+              )*/
             ]),
           ),
-        ),);
+        ),
+      ),
+    );
   }
 
 /*
@@ -284,5 +375,27 @@ SafeArea(
     // Use a regular expression to validate the email address
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     return emailRegex.hasMatch(email);
+  }
+}
+
+class SocialIconsSignIn extends StatelessWidget {
+  const SocialIconsSignIn({
+    super.key,
+    this.icon,
+  });
+  final Widget? icon;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 60,
+      height: 60,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: Colors.grey, width: 1),
+      ),
+      child: Center(
+        child: icon ?? Icon(Icons.no_accounts),
+      ),
+    );
   }
 }
