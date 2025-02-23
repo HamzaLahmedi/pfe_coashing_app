@@ -15,18 +15,18 @@ final Color? textColor;
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 24),
         decoration: BoxDecoration(
           color: color ?? AppColors.buttonPrimary,
-          borderRadius: BorderRadius.circular(8),
-          /*boxShadow: [
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black26,
               spreadRadius: 2,
               blurRadius: 4,
               offset: Offset(0, 2), // changes position of shadow
             ),
-          ],*/
+          ],
         ),
         child: Center(
           child: Text(

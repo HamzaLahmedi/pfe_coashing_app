@@ -36,13 +36,79 @@ class _SignInViewState extends State<SignInView> {
 
     return Scaffold(
         backgroundColor: AppColors.lightBackground,
-        body: Column(children: [
-          Center(
-            child: Image.asset(
-              "assets/images/icon_sign.png",
-            ),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14),
+            child: Column(children: [
+              Center(
+                child: Image.asset(
+                  "assets/images/icon_sign.png",
+                ),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Text(
+                "Welcome to FitConnect",
+                style: GoogleFonts.montserrat(
+                  color: AppColors.darkBackground,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Text(
+                "Log in to continue your fitness journey",
+                style: GoogleFonts.montserrat(
+                  color: AppColors.textSecondary,
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              Text(
+                " journey",
+                style: GoogleFonts.montserrat(
+                  color: AppColors.textSecondary,
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              CustomTextField(
+                hintText: "Enter your email",
+                icon: Icons.email_outlined,
+                controller: _emailController,
+                obscureText: false,
+                keyboardType: TextInputType.emailAddress,
+                labelText: "Email",
+              ),
+              SizedBox(
+                height: 22,
+              ),
+               CustomTextField(
+                hintText: "Enter your password",
+                icon: Icons.lock_outline,
+                controller: _passwordController,
+                obscureText: true,
+                keyboardType: TextInputType.visiblePassword,
+                labelText: "Password",
+              ),
+              SizedBox(
+                height: 22,
+              ),
+              CustomElevatedButton(
+                text: "Sign In",
+                onPressed: (){},
+                color: AppColors.buttonPrimary,
+                textColor: Colors.white,
+              )
+            ]),
           ),
-        ]));
+        ),);
   }
 
 /*
