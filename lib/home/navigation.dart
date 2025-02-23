@@ -20,39 +20,38 @@ class _NavigationState extends State<Navigation> {
     HomeView(),
     ProfileView(),
   ];
+
   @override
   Widget build(BuildContext context) {
-    
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: AppColors.darkBackground,
       bottomNavigationBar: CurvedNavigationBar(
         items: [
           Icon(
             Icons.live_tv_outlined,
-       //     color: AppColors.white,
+            color:Colors.white, // Use theme color
           ),
           Icon(
             Icons.home,
-         //   color: AppColors.white,
+            color:Colors.white, // Use theme color
           ),
           Icon(
             Icons.person,
-        //    color: AppColors.white,
+            color:Colors.white, // Use theme color
           ),
         ],
-         onTap: (index) {
+        onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
-        backgroundColor: AppColors.darkBackground,
-    //    color: AppColors.primary,
-        
-        //buttonBackgroundColor: AppColors.primary,
+        backgroundColor: colorScheme.surface, // Use theme color
+        color: colorScheme.primary, // Use theme color
+        buttonBackgroundColor: colorScheme.primary, // Use theme color
         height: 60,
       ),
-      
       body: _screens[_currentIndex],
     );
   }

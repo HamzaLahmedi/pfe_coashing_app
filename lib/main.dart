@@ -28,6 +28,14 @@ class PfeCoashingApp extends StatelessWidget {
       title: 'PFE Coaching App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: AppColors.primaryColor,
+        scaffoldBackgroundColor: AppColors.lightBackground,
+        textTheme: GoogleFonts.montserratTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
+      darkTheme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: AppColors.primaryColor,
         scaffoldBackgroundColor: AppColors.darkBackground,

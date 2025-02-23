@@ -15,10 +15,11 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final FirebaseAuthService auth = FirebaseAuthService();
+    final colorScheme = Theme.of(context).colorScheme;
     return  Scaffold(
-      backgroundColor: AppColors.darkBackground,
+      
       appBar: AppBar(
-        backgroundColor: AppColors.darkBackground,
+       backgroundColor:colorScheme.brightness == Brightness.dark ? AppColors.darkBackground : AppColors.lightBackground,
         title: Text(
           'Home',
           style: GoogleFonts.montserrat(
@@ -40,7 +41,8 @@ class _HomeViewState extends State<HomeView> {
             },
             icon: Icon(
               Icons.logout,
-          //    color: AppColors.error,
+              color: colorScheme.brightness == Brightness.dark ? AppColors.lightBackground : AppColors.darkBackground,
+
               size: 22,
             ),
           )

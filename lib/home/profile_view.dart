@@ -7,16 +7,17 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: AppColors.darkBackground,
+    
       appBar: AppBar(
-        backgroundColor: AppColors.darkBackground,
+       backgroundColor:colorScheme.brightness == Brightness.dark ? AppColors.darkBackground : AppColors.lightBackground,
         title: Text(
           'Profile',
           style: GoogleFonts.montserrat(
          //   color: AppColors.textPrimary,
             fontSize: 20,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.normal,
           ),
         ),
       ),
@@ -24,7 +25,7 @@ class ProfileView extends StatelessWidget {
         child: Text(
           'This is Profile View',
           style: GoogleFonts.montserrat(
-          //  color: AppColors.textPrimary,
+          
             fontSize: 18,
           ),
         ),

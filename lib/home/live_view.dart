@@ -7,16 +7,17 @@ class LiveView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: AppColors.darkBackground,
+     
       appBar: AppBar(
-        backgroundColor: AppColors.darkBackground,
+       backgroundColor:colorScheme.brightness == Brightness.dark ? AppColors.darkBackground : AppColors.lightBackground,
         title: Text(
           'Live Sessions',
           style: GoogleFonts.montserrat(
-        //    color: AppColors.textPrimary,
+       
             fontSize: 20,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.normal,
           ),
         ),
       ),
@@ -24,7 +25,7 @@ class LiveView extends StatelessWidget {
         child: Text(
           'This is Live Sessions',
           style: GoogleFonts.montserrat(
-         //   color: AppColors.textPrimary,
+        
             fontSize: 18,
           ),
         ),
