@@ -39,7 +39,7 @@ class _SignInViewState extends State<SignInView> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
             child: Column(children: [
               SizedBox(
                 height: height * 0.04,
@@ -108,7 +108,9 @@ class _SignInViewState extends State<SignInView> {
               ),
               CustomElevatedButton(
                 text: "Sign In",
-                onPressed: () {},
+                onPressed: () {
+                  _signIn();
+                },
                 color: AppColors.buttonPrimary,
                 textColor: Colors.white,
               ),
