@@ -35,19 +35,21 @@ class _SignInViewState extends State<SignInView> {
     final double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: AppColors.lightBackground,
+     // backgroundColor: AppColors.lightBackground,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14),
             child: Column(children: [
               SizedBox(
-                height: height * 0.05,
+                height: height * 0.04,
               ),
               Center(
-                child: Image.asset(
+                child:
+                Icon(Icons.fitness_center, color: AppColors.primaryColor, size: 100.0),
+                /* Image.asset(
                   "assets/images/icon_sign.png",
-                ),
+                ),*/
               ),
               SizedBox(
                 height: 16,
@@ -55,7 +57,7 @@ class _SignInViewState extends State<SignInView> {
               Text(
                 "Welcome to FitConnect",
                 style: GoogleFonts.montserrat(
-                  color: AppColors.darkBackground,
+                  //color: AppColors.darkBackground,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -80,7 +82,7 @@ class _SignInViewState extends State<SignInView> {
                 ),
               ),
               SizedBox(
-                height: 40,
+                height: height * 0.07,
               ),
               CustomTextField(
                 hintText: "Enter your email",
@@ -91,7 +93,7 @@ class _SignInViewState extends State<SignInView> {
                 labelText: "Email",
               ),
               SizedBox(
-                height: 22,
+                height: 18,
               ),
               CustomTextField(
                 hintText: "Enter your password",
@@ -102,7 +104,7 @@ class _SignInViewState extends State<SignInView> {
                 labelText: "Password",
               ),
               SizedBox(
-                height: 22,
+                height: 18,
               ),
               CustomElevatedButton(
                 text: "Sign In",
@@ -110,9 +112,7 @@ class _SignInViewState extends State<SignInView> {
                 color: AppColors.buttonPrimary,
                 textColor: Colors.white,
               ),
-              SizedBox(
-                height: 28,
-              ),
+              SizedBox(height: height * 0.05),
               GestureDetector(
                 onTap: () {
                   // Handle forgot password
@@ -126,7 +126,9 @@ class _SignInViewState extends State<SignInView> {
                   ),
                 ),
               ),
-              SizedBox(height: 32.0),
+              SizedBox(
+                height: height * 0.05,
+              ),
               
               // Sign Up Link
               Row(
@@ -135,14 +137,19 @@ class _SignInViewState extends State<SignInView> {
                   Text(
                     "Don't have an account? ",
                     style: GoogleFonts.montserrat(
-                      color: Colors.black,
+                     // color: Colors.black,
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
-                      // Navigate to Sign Up screen
+                     Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignupView(),
+                          ),
+                        );
                     },
                     child: Text(
                       "Sign Up",
@@ -378,24 +385,3 @@ SafeArea(
   }
 }
 
-class SocialIconsSignIn extends StatelessWidget {
-  const SocialIconsSignIn({
-    super.key,
-    this.icon,
-  });
-  final Widget? icon;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 60,
-      height: 60,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: Colors.grey, width: 1),
-      ),
-      child: Center(
-        child: icon ?? Icon(Icons.no_accounts),
-      ),
-    );
-  }
-}

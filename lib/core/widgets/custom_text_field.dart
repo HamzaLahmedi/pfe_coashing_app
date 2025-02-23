@@ -38,7 +38,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             child: Text(
               widget.labelText!,
               style: GoogleFonts.montserrat(
-                color: Colors.black, // Grey text
+                //color: Colors.black, // Grey text
                 fontSize: 16,
                 fontWeight: FontWeight.w500, 
               ),
@@ -48,7 +48,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
           controller: widget.controller,
           keyboardType: widget.keyboardType,
           obscureText: widget.obscureText ? _isObscured : false,
-          style: TextStyle(color: Colors.black), // Text color
+          style: TextStyle(
+            //color: Colors.black,
+          ), // Text color
           decoration: InputDecoration(
             prefixIcon: Icon(widget.icon, color: Colors.grey), // Grey icon
             hintText: widget.hintText,

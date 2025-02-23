@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pfe_coashing_app/auth/sign_in_view.dart';
+import 'package:pfe_coashing_app/core/utils/color.dart';
 import 'package:pfe_coashing_app/splash_screen/splash_view.dart';
 import 'package:pfe_coashing_app/home/navigation.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_progress_indicator.dart';
@@ -25,6 +27,15 @@ class PfeCoashingApp extends StatelessWidget {
     return MaterialApp(
       title: 'PFE Coaching App',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: AppColors.primaryColor,
+        scaffoldBackgroundColor: AppColors.darkBackground,
+        textTheme: GoogleFonts.montserratTextTheme(
+          Theme.of(context).textTheme.apply(bodyColor: Colors.white),
+        ),
+      ),
+      themeMode: ThemeMode.system,
       home: const SplashView(), // Show splash screen first
     );
   }

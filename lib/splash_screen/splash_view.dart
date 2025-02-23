@@ -38,7 +38,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-        backgroundColor: AppColors.lightBackground,
+        //backgroundColor: AppColors.lightBackground,
         body: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -51,7 +51,8 @@ class _SplashViewState extends State<SplashView> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Image.asset("assets/images/icon_sign.png"),
+              Icon(Icons.fitness_center, color: AppColors.primaryColor, size: 70.0),
+              //Image.asset("assets/images/icon_sign.png"),
               Text(
                 "CONNECT",
                 style: GoogleFonts.montserrat(
