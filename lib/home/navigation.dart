@@ -48,8 +48,8 @@ class _NavigationState extends State<Navigation> {
           });
         },
         backgroundColor: colorScheme.surface, // Use theme color
-        color: colorScheme.primary, // Use theme color
-        buttonBackgroundColor: colorScheme.primary, // Use theme color
+        color: AppColors.primaryColor, // Use theme color
+        buttonBackgroundColor:AppColors.primaryColor, // Use theme color
         height: 60,
       ),
       body: _screens[_currentIndex],
