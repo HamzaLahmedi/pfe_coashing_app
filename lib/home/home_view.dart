@@ -14,7 +14,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuthService auth = FirebaseAuthService();
+   // final FirebaseAuthService auth = FirebaseAuthService();
     final colorScheme = Theme.of(context).colorScheme;
     return  Scaffold(
       
@@ -31,14 +31,15 @@ class _HomeViewState extends State<HomeView> {
         //just trying to add a sign out button to check functionality works or not :))
         actions: [
           IconButton(
-            onPressed: () async {
+            onPressed:(){}
+            /* () async {
               final navigator = Navigator.of(context);
               await auth.signOut();
               navigator.pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => const SignInView()),
                 (route) => false,
               );
-            },
+            }*/,
             icon: Icon(
               Icons.logout,
               color: colorScheme.brightness == Brightness.dark ? AppColors.lightBackground : AppColors.darkBackground,

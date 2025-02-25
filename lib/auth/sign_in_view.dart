@@ -1,14 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pfe_coashing_app/auth/signup_view.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
-import 'package:pfe_coashing_app/core/utils/toast.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_elevated_button.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_text_field.dart';
-import 'package:pfe_coashing_app/firebase/auth.dart';
 import 'package:pfe_coashing_app/home/navigation.dart';
+import 'package:pfe_coashing_app/services/auth_service.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -18,11 +15,36 @@ class SignInView extends StatefulWidget {
 }
 
 class _SignInViewState extends State<SignInView> {
-  final FirebaseAuthService _auth = FirebaseAuthService();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final _authService = AuthService();
+  bool _isLoading = false;
 
+  Future<void> _login() async {
+    setState(() => _isLoading = true);
+    
+    try {
+      final result = await _authService.login(
+        _emailController.text,
+        _passwordController.text,
+      );
+
+      if (!result.isError) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Navigation(),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(result.errorMessage ?? 'Login failed')),
+        );
+      }
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
   @override
   void dispose() {
     _emailController.dispose();
@@ -34,283 +56,107 @@ class _SignInViewState extends State<SignInView> {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-     // backgroundColor: AppColors.lightBackground,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-            child: Column(children: [
-              SizedBox(
-                height: height * 0.04,
-              ),
-              Center(
-                child:
-                Icon(Icons.fitness_center, color: AppColors.primaryColor, size: 100.0),
-                /* Image.asset(
-                  "assets/images/icon_sign.png",
-                ),*/
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Text(
-                "Welcome to FitConnect",
-                style: GoogleFonts.montserrat(
-                  //color: AppColors.darkBackground,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+    return Stack(
+      children: [
+        Scaffold(
+        // backgroundColor: AppColors.lightBackground,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+              child: Column(children: [
+                SizedBox(
+                  height: height * 0.04,
                 ),
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Text(
-                "Log in to continue your fitness journey",
-                style: GoogleFonts.montserrat(
-                  color: AppColors.textSecondary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.normal,
+                Center(
+                  child: Icon(Icons.fitness_center, color: AppColors.primaryColor, size: 100.0),
                 ),
-              ),
-              Text(
-                " journey",
-                style: GoogleFonts.montserrat(
-                  color: AppColors.textSecondary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.normal,
+                SizedBox(
+                  height: 16,
                 ),
-              ),
-              SizedBox(
-                height: height * 0.07,
-              ),
-              CustomTextField(
-                hintText: "Enter your email",
-                icon: Icons.email_outlined,
-                controller: _emailController,
-                obscureText: false,
-                keyboardType: TextInputType.emailAddress,
-                labelText: "Email",
-              ),
-              SizedBox(
-                height: 18,
-              ),
-              CustomTextField(
-                hintText: "Enter your password",
-                icon: Icons.lock_outline,
-                controller: _passwordController,
-                obscureText: true,
-                keyboardType: TextInputType.visiblePassword,
-                labelText: "Password",
-              ),
-              SizedBox(
-                height: 18,
-              ),
-              CustomElevatedButton(
-                text: "Sign In",
-                onPressed: () {
-                  _signIn();
-                },
-                color: AppColors.buttonPrimary,
-                textColor: Colors.white,
-              ),
-              SizedBox(height: height * 0.05),
-              GestureDetector(
-                onTap: () {
-                  // Handle forgot password
-                },
-                child: Text(
-                  "Forgot Password?",
+                Text(
+                  "Welcome to FitConnect",
                   style: GoogleFonts.montserrat(
-                    color: AppColors.primaryColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+                    //color: AppColors.darkBackground,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                ),
-              ),
-              SizedBox(
-                height: height * 0.05,
-              ),
-              
-              // Sign Up Link
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Don't have an account? ",
-                    style: GoogleFonts.montserrat(
-                     // color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                     Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SignupView(),
-                          ),
-                        );
-                    },
-                    child: Text(
-                      "Sign Up",
-                      style: GoogleFonts.montserrat(
-                        color: AppColors.primaryColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                ],
-              ),
-             /* SizedBox(
-                height: 40,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SocialIconsSignIn(
-                    icon: Image.asset(
-                      "assets/images/google_icon.png",
-                      width: 36.0,
-                      height: 36.0,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  SocialIconsSignIn(
-                    icon: Icon(
-                      Icons.facebook,
-                      color: Colors.black87,
-                      size: 36.0,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  SocialIconsSignIn(
-                    icon: Icon(
-                      Icons.apple,
-                      color: Colors.black87,
-                      size: 36.0,
-                    ),
-                  ),
-                ],
-              )*/
-            ]),
-          ),
-        ),
-      ),
-    );
-  }
-
-/*
-SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 40),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                SizedBox(
-                  height: height * 0.05,
-                ),
-                Center(
-                  child: Text(
-                    "FIT CONNECT",
-                    style: GoogleFonts.montserrat(
-                      color: AppColors.textPrimary,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Center(
-                  child: Text(
-                    "Log in to continue your fitness journey",
-                    style: GoogleFonts.montserrat(
-                      color: AppColors.textSecondary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.1,
-                ),
-                Divider(
-                  thickness: 0.5,
-                ),
-                CustomTextField(
-                  hintText: "Enter your email",
-                  icon: Icons.email_outlined,
-                  obscureText: false,
-                  keyboardType: TextInputType.emailAddress,
-                  controller: _emailController,
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                CustomTextField(
-                  hintText: "Enter your password",
-                  icon: Icons.lock_outline,
-                  obscureText: true,
-                  keyboardType: TextInputType.visiblePassword,
-                  controller: _passwordController,
                 ),
                 SizedBox(
                   height: 8,
                 ),
                 Text(
-                  "Forget your password?",
+                  "Log in to continue your fitness journey",
                   style: GoogleFonts.montserrat(
                     color: AppColors.textSecondary,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
                 SizedBox(
-                  height: height * 0.1,
+                  height: height * 0.07,
+                ),
+                CustomTextField(
+                  hintText: "Enter your email",
+                  icon: Icons.email_outlined,
+                  controller: _emailController,
+                  obscureText: false,
+                  keyboardType: TextInputType.emailAddress,
+                  labelText: "Email",
                 ),
                 SizedBox(
-                  width: double.infinity,
-                  child: CustomElevatedButton(
-                    text: "Sign In",
-                    onPressed: _signIn,
-                  ),
+                  height: 18,
+                ),
+                CustomTextField(
+                  hintText: "Enter your password",
+                  icon: Icons.lock_outline,
+                  controller: _passwordController,
+                  obscureText: true,
+                  keyboardType: TextInputType.visiblePassword,
+                  labelText: "Password",
                 ),
                 SizedBox(
-                  width: double.infinity,
-                  child: CustomElevatedButton(
-                    text: " G Google ",
-                    textColor: AppColors.primary,
-                    color: AppColors.white,
-                    onPressed: () {},
+                  height: 18,
+                ),
+                CustomElevatedButton(
+                  text: "Sign In",
+                  onPressed: () {
+                    _login();
+                  },
+                  color: AppColors.buttonPrimary,
+                  textColor: Colors.white,
+                ),
+                SizedBox(height: height * 0.05),
+                GestureDetector(
+                  onTap: () {
+                    // Handle forgot password
+                  },
+                  child: Text(
+                    "Forgot Password?",
+                    style: GoogleFonts.montserrat(
+                      color: AppColors.primaryColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 SizedBox(
                   height: height * 0.05,
                 ),
+                // Sign Up Link
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don't have an account?",
+                      "Don't have an account? ",
                       style: GoogleFonts.montserrat(
-                        color: AppColors.white,
+                        // color: Colors.black,
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {
+                    GestureDetector(
+                      onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -321,69 +167,34 @@ SafeArea(
                       child: Text(
                         "Sign Up",
                         style: GoogleFonts.montserrat(
-                          color: AppColors.primary,
+                          color: AppColors.primaryColor,
                           fontSize: 16,
                           fontWeight: FontWeight.normal,
+                          decoration: TextDecoration.underline,
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 30,
+                    ),
                   ],
                 ),
-                Divider(
-                  thickness: 0.1,
-                ),
-              ],
+              ]),
             ),
           ),
         ),
+        
       ),
-*/
-  void _signIn() async {
-    String email = _emailController.text.trim();
-    String password = _passwordController.text.trim();
-
-    // Check if all fields are filled
-    if (email.isEmpty || password.isEmpty) {
-      showToast(message: "Please fill in all fields.");
-      return;
-    }
-
-    // Check if the email is valid
-    if (!isValidEmail(email)) {
-      showToast(message: "Please enter a valid email address.");
-      return;
-    }
-
-    // Call the signInWithEmailAndPassword method
-    User? user = await _auth.signInWithEmailAndPassword(email, password);
-
-    if (user != null) {
-      // Create or update the user document in Firestore
-      await _firestore.collection('users').doc(user.uid).set({
-        'email': user.email,
-        'lastSignInTime': user.metadata.lastSignInTime,
-      }, SetOptions(merge: true));
-
-      showToast(message: "User successfully signed in");
-
-      if (!mounted) return; // Check if the widget is still mounted
-
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const Navigation()),
-        (route) => false,
-      );
-    } else {
-      showToast(
-        message: "An error occurred while signing in the user.",
-      );
-    }
-  }
-
-  bool isValidEmail(String email) {
-    // Use a regular expression to validate the email address
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    return emailRegex.hasMatch(email);
+      if (_isLoading)
+          Container(
+            color: Colors.black26,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+      ],
+    );
+    
   }
 }
 

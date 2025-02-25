@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pfe_coashing_app/auth/sign_in_view.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
 import 'package:pfe_coashing_app/home/navigation.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pfe_coashing_app/services/auth_service.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -13,58 +13,62 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  final _authService = AuthService();
+
   @override
- void initState() {
+  void initState() {
     super.initState();
-    // Delay for 2 seconds, then navigate to the appropriate screen
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        User? user = FirebaseAuth.instance.currentUser;
-        if (user != null) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const Navigation()),
-          );
-        } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const SignInView()),
-          );
-        }
-      }
-    });
+    _checkAuth();
+  }
+
+  Future<void> _checkAuth() async {
+    await Future.delayed(const Duration(seconds: 2)); // Add delay for splash effect
+
+    final response = await _authService.getProfile();
+    if (!mounted) return; // Check if the widget is still mounted
+
+    if (response.isError) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const SignInView()),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const Navigation()),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        //backgroundColor: AppColors.lightBackground,
-        body: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                "FIT",
-                style: GoogleFonts.montserrat(
-                 color: AppColors.primaryColor,
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                ),
+    return Scaffold(
+      //backgroundColor: AppColors.lightBackground,
+      body: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              "FIT",
+              style: GoogleFonts.montserrat(
+                color: AppColors.primaryColor,
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
               ),
-              Icon(Icons.fitness_center, color: AppColors.primaryColor, size: 70.0),
-              //Image.asset("assets/images/icon_sign.png"),
-              Text(
-                "CONNECT",
-                style: GoogleFonts.montserrat(
-                  color: AppColors.primaryColor,
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                ),
+            ),
+            Icon(Icons.fitness_center, color: AppColors.primaryColor, size: 70.0),
+            //Image.asset("assets/images/icon_sign.png"),
+            Text(
+              "CONNECT",
+              style: GoogleFonts.montserrat(
+                color: AppColors.primaryColor,
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
-    
+      ),
+    );
   }
 }
