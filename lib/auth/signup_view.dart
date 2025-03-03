@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pfe_coashing_app/auth/sign_in_view.dart';
@@ -33,7 +32,7 @@ final _formKey = GlobalKey<FormState>();
 
     try {
       final result = await _authService.register(
-        _emailController.text, // email will be used as username
+        _usernameController.text, 
         _emailController.text,    
         _passwordController.text,
         double.parse(_heightController.text),
@@ -72,10 +71,11 @@ final _formKey = GlobalKey<FormState>();
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-     
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return Stack(
+      children:[
+        Scaffold(
+       
+        body: SingleChildScrollView(
           child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
               child: Form(
@@ -264,6 +264,14 @@ final _formKey = GlobalKey<FormState>();
               )),
         ),
       ),
+      if (_isLoading)
+          Container(
+            color: Colors.purple,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+      ] 
     );
   }
 
@@ -323,8 +331,8 @@ final _formKey = GlobalKey<FormState>();
     }
   }*/
 
-  bool isValidEmail(String email) {
+  /* bool isValidEmail(String email) {
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     return emailRegex.hasMatch(email);
-  }
+  }*/
 }

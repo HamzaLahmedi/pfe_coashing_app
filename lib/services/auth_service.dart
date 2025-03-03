@@ -42,7 +42,7 @@ class AuthService {
     }
   }
 
-  Future<APIResponse> register(String username, String email, String password,double heigth,double weight) async {
+  Future<APIResponse> register(String username, String email, String password,double height,double weight) async {
     try {
       final response = await _api.getAPIRequest(
         method: APIMethod.post,
@@ -51,7 +51,7 @@ class AuthService {
           'username': username,
           'email': email,
           'password': password,
-          'heigth':heigth,
+          'height':height,
           'weight':weight
         },
       );
@@ -67,7 +67,9 @@ class AuthService {
           if (response.data['user'] != null) {
             GlobalController.currentUser = User.fromJson(response.data['user']);
           }
-        }
+        }else {
+        print('Register error: ${response.errorMessage}');
+      }
       }
       
       return response;

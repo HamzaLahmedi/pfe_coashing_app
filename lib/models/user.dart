@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 class User {
   final int id;
@@ -11,8 +10,8 @@ class User {
   final DateTime createdAt;
   final DateTime updatedAt;
   final DateTime publishedAt;
-  final Float height;
-  final Float weight;
+  final double height;
+  final double weight;
   final String? name;
 
   User({
@@ -39,8 +38,8 @@ class User {
       provider: json['provider'],
       confirmed: json['confirmed'],
       blocked: json['blocked'],
-      height: json['height'],
-      weight: json['weight'],
+      height: json['height'].toDouble(),
+      weight: json['weight'].toDouble(),
       createdAt: DateTime.parse(json['createdAt']),
       updatedAt: DateTime.parse(json['updatedAt']),
       publishedAt: DateTime.parse(json['publishedAt']),

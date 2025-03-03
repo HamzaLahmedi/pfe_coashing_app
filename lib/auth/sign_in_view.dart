@@ -4,8 +4,10 @@ import 'package:pfe_coashing_app/auth/signup_view.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_elevated_button.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_text_field.dart';
+import 'package:pfe_coashing_app/global/global_controller.dart';
 import 'package:pfe_coashing_app/home/navigation.dart';
 import 'package:pfe_coashing_app/services/auth_service.dart';
+import 'package:pfe_coashing_app/services/storage_service.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -24,11 +26,12 @@ class _SignInViewState extends State<SignInView> {
     setState(() => _isLoading = true);
     
     try {
+      
       final result = await _authService.login(
         _emailController.text,
         _passwordController.text,
       );
-
+      
       if (!result.isError) {
         Navigator.pushReplacement(
           context,
@@ -121,6 +124,8 @@ class _SignInViewState extends State<SignInView> {
                 CustomElevatedButton(
                   text: "Sign In",
                   onPressed: () {
+                    StorageService.removeToken();
+                    GlobalController.token = null;
                     _login();
                   },
                   color: AppColors.buttonPrimary,

@@ -22,9 +22,12 @@ class _SplashViewState extends State<SplashView> {
   }
 
   Future<void> _checkAuth() async {
-    await Future.delayed(const Duration(seconds: 2)); // Add delay for splash effect
+    await Future.delayed(const Duration(seconds: 1)); // Add delay for splash effect
 
     final response = await _authService.getProfile();
+    debugPrint("*************************************************************************************************************************************");
+    debugPrint(response.data.toString());
+    debugPrint("*****************");
     if (!mounted) return; // Check if the widget is still mounted
 
     if (response.isError) {
