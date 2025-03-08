@@ -27,7 +27,7 @@ class PfeCoashingApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
-        primaryColor: AppColors.primaryColor,
+        primaryColor: AppColors.purpleColor,
         scaffoldBackgroundColor: AppColors.lightBackground,
         textTheme: GoogleFonts.montserratTextTheme(
           Theme.of(context).textTheme,
@@ -35,7 +35,7 @@ class PfeCoashingApp extends StatelessWidget {
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
-        primaryColor: AppColors.primaryColor,
+        primaryColor: AppColors.purpleColor,
         scaffoldBackgroundColor: AppColors.darkBackground,
         textTheme: GoogleFonts.montserratTextTheme(
           Theme.of(context).textTheme.apply(bodyColor: Colors.white),

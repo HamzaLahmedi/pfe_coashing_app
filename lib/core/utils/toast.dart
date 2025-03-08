@@ -1,4 +1,4 @@
-import 'package:fluttertoast/fluttertoast.dart';
+/*import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart'; // Import AppColors
 
 void showToast({required String message}) {
@@ -11,4 +11,4 @@ void showToast({required String message}) {
    // textColor: AppColors.textPrimary, // Adjust text color to fit app design
     fontSize: 16.0,
   );
-}
+}*/

@@ -38,13 +38,14 @@ class ProfileBodyView extends StatelessWidget {
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: AppColors
-                      .primaryColor, // Change this to your desired border color
+                      .purpleColor, // Change this to your desired border color
                   width: 3.0, // Adjust the border width
                 ),
               ),
               child: CircleAvatar(
                 radius: 50,
-                backgroundImage: AssetImage(imageUrl??'assets/images/heart-rate.png'),
+                backgroundImage:
+                    AssetImage(imageUrl ?? 'assets/images/user.png'),
                 backgroundColor: Colors.transparent,
               ),
             ),
@@ -52,13 +53,13 @@ class ProfileBodyView extends StatelessWidget {
           Center(
             child: Text(
               userName,
-              style: TextStyles.mainBoldStyle,
+              style: TextStyles.mainBoldStyle(context),
             ),
           ),
           Center(
             child: Text(
               "Fitness Athlete",
-              style: TextStyles.secondaryNormalStyle,
+              style: TextStyles.regular12Style,
             ),
           ),
           FitDetailsContainer(
@@ -70,7 +71,7 @@ class ProfileBodyView extends StatelessWidget {
           ),
           Text(
             "Personal Information",
-            style: TextStyles.mainBoldStyle,
+            style: TextStyles.mainBoldStyle(context),
           ),
           Row(
             children: [
@@ -78,7 +79,7 @@ class ProfileBodyView extends StatelessWidget {
                 child: ProfileListTile(
                   title: "Height",
                   subtitle: "$height cm",
-                  leading: Icon(Icons.height),
+                  leading: Image.asset("assets/images/height_icon.png"),
                   contentPadding: EdgeInsets.symmetric(horizontal: 4),
                 ),
               ),
@@ -87,7 +88,7 @@ class ProfileBodyView extends StatelessWidget {
                 child: ProfileListTile(
                   title: "Weight",
                   subtitle: "$weight kg",
-                  leading: Icon(Icons.fitness_center_sharp),
+                  leading: Image.asset("assets/images/weight_icon.png"),
                   contentPadding: EdgeInsets.symmetric(horizontal: 4),
                 ),
               ),
@@ -96,12 +97,18 @@ class ProfileBodyView extends StatelessWidget {
           ProfileListTile(
             title: "Email",
             subtitle: email,
-            leading: Icon(Icons.email),
+            leading: Icon(
+              Icons.email,
+              color: AppColors.purpleColor,
+            ),
           ),
           ProfileListTile(
             title: "User Name",
             subtitle: userName,
-            leading: Icon(Icons.person),
+            leading: Icon(
+              Icons.person,
+              color: AppColors.purpleColor,
+            ),
           ),
         ],
       ),

@@ -25,9 +25,9 @@ class _SplashViewState extends State<SplashView> {
     await Future.delayed(const Duration(seconds: 1)); // Add delay for splash effect
 
     final response = await _authService.getProfile();
-    debugPrint("*************************************************************************************************************************************");
+    /*debugPrint("*************************************************************************************************************************************");
     debugPrint(response.data.toString());
-    debugPrint("*****************");
+    debugPrint("*****************");*/
     if (!mounted) return; // Check if the widget is still mounted
 
     if (response.isError) {
@@ -45,31 +45,42 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
+    print(
+        '****************************************************************************************************');
+    print(MediaQuery.of(context).size.height);
+    print(
+        '****************************************************************************************************');
+
     return Scaffold(
-      //backgroundColor: AppColors.lightBackground,
-      body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              "FIT",
-              style: GoogleFonts.montserrat(
-                color: AppColors.primaryColor,
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-              ),
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.symmetric(horizontal: 18),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "FIT",
+                  style:GoogleFonts.poppins(
+                    color: AppColors.purpleColor,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                //Icon(Icons.fitness_center, color: AppColors.purpleColor, size: 70.0),
+                Image.asset("assets/images/dumbell_logo.png"),
+                Text(
+                  "CONNECT",
+                  style: GoogleFonts.poppins(
+                    color: AppColors.purpleColor,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-            Icon(Icons.fitness_center, color: AppColors.primaryColor, size: 70.0),
-            //Image.asset("assets/images/icon_sign.png"),
-            Text(
-              "CONNECT",
-              style: GoogleFonts.montserrat(
-                color: AppColors.primaryColor,
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

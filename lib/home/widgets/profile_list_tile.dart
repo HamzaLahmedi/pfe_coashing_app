@@ -24,11 +24,11 @@ class ProfileListTile extends StatelessWidget {
       ),
       subtitle: Text(
         subtitle,
-        style: TextStyles.secondaryNormalStyle,
+        style: TextStyles.regular12Style,
       ),
       shape: RoundedRectangleBorder(
         side: BorderSide(
-          color: AppColors.primaryColor,
+          color: AppColors.purpleColor,
           width: 2,
         ),
         borderRadius: BorderRadius.circular(8),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
+import 'package:pfe_coashing_app/core/utils/style.dart';
 
 class FitDetails extends StatelessWidget {
   const FitDetails({
@@ -19,22 +20,18 @@ final String fitDetailValue;
         children: [
           Text(
             fitDetail,
-            style: GoogleFonts.montserrat(
+            style: TextStyles.regular12Style.copyWith(
               color: colorScheme.brightness == Brightness.light
-                  ? AppColors.textSecondary
-                  : Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.normal,
+                  ? AppColors.blackColor
+                  : AppColors.lightBackground,
             ),
           ),
           Text(
             fitDetailValue,
-            style: GoogleFonts.montserrat(
-              fontSize: 14,
-              fontWeight: FontWeight.normal,
+            style:  TextStyles.regular12Style.copyWith(
               color: colorScheme.brightness == Brightness.light
-                  ? AppColors.buttonPrimary
-                  : Colors.white,
+                  ? AppColors.blackColor
+                  : AppColors.lightBackground,
             ),
           ),
         ],

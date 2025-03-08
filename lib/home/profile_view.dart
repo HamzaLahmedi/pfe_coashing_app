@@ -40,23 +40,25 @@ class _ProfileViewState extends State<ProfileView> {
     final colorScheme = Theme.of(context).colorScheme;
     final heigthScreen = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-        body: _isLoading
-            ? const Center(
-                child: CustomProgressIndicator(),
-              )
-            : _error != null
-                ? Center(
-                    child: Text(_error!),
-                  )
-                : ProfileBodyView(
-                    heigthScreen: heigthScreen,
-                    colorScheme: colorScheme,
-                    email: _user!.email,
-                    userName: _user!.username,
-                    height: _user!.height.toString(),
-                    weight: _user!.weight.toString(),
-                  ));
+    return SafeArea(
+      child: Scaffold(
+          body: _isLoading
+              ? const Center(
+                  child: CustomProgressIndicator(),
+                )
+              : _error != null
+                  ? Center(
+                      child: Text(_error!),
+                    )
+                  : ProfileBodyView(
+                      heigthScreen: heigthScreen,
+                      colorScheme: colorScheme,
+                      email: _user!.email,
+                      userName: _user!.username,
+                      height: _user!.height.toString(),
+                      weight: _user!.weight.toString(),
+                    )),
+    );
   }
 }
 

@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
+import 'package:pfe_coashing_app/core/utils/style.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
-    super.key, required this.hintText, required this.icon, required this.obscureText, this.keyboardType, this.controller, this.labelText,
+    super.key,
+    required this.hintText,
+    required this.icon,
+    required this.obscureText,
+    this.keyboardType,
+    this.controller,
+    this.labelText,
+    this.validator,
   });
 
   final String hintText;
-  final IconData icon;
+  final Widget icon;
   final TextInputType? keyboardType;
   final bool obscureText;
   final TextEditingController? controller;
   final String? labelText;
-
+  final String? Function(String?)? validator;
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -37,10 +44,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               widget.labelText!,
-              style: GoogleFonts.montserrat(
-                //color: Colors.black, // Grey text
-                fontSize: 16,
-                fontWeight: FontWeight.w500, 
+              style: TextStyles.regular12Style.copyWith(
+                fontSize: 14,
+                color: Theme.of(context).brightness == Brightness.light
+                    ? AppColors.blackColor
+                    : AppColors.lightBackground,
               ),
             ),
           ),
@@ -49,17 +57,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
           keyboardType: widget.keyboardType,
           obscureText: widget.obscureText ? _isObscured : false,
           style: TextStyle(
-            //color: Colors.black,
-          ), // Text color
+              //color: Colors.black,
+              ), // Text color  
+          validator: widget.validator,
           decoration: InputDecoration(
-            prefixIcon: Icon(widget.icon, color: Colors.grey), // Grey icon
+            prefixIcon: widget.icon, // Grey icon
             hintText: widget.hintText,
             hintStyle: TextStyle(color: Colors.grey[400]), // Grayer hint text
             suffixIcon: widget.obscureText
                 ? IconButton(
                     icon: Icon(
                       _isObscured ? Icons.visibility_off : Icons.visibility,
-                      color: Colors.grey,
+                      color: AppColors.purpleColor,
                     ),
                     onPressed: () {
                       setState(() {
@@ -78,7 +87,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: AppColors.primaryColor, width: 2), // Highlighted border
+              borderSide: BorderSide(
+                  color: AppColors.purpleColor,
+                  width: 2), // Highlighted border
             ),
             contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           ),

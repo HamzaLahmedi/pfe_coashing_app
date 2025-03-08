@@ -18,9 +18,7 @@ class FitDetailsContainer extends StatelessWidget {
       height: heigthScreen * 0.1,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: colorScheme.brightness == Brightness.dark
-            ? AppColors.primaryColor
-            : AppColors.darkBackground,
+        color: AppColors.purpleColor,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

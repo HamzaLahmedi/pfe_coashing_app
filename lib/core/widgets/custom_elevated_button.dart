@@ -17,7 +17,7 @@ final Color? textColor;
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 14, horizontal: 24),
         decoration: BoxDecoration(
-          color: color ?? AppColors.buttonPrimary,
+          color: color ?? AppColors.purpleColor,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
@@ -31,10 +31,10 @@ final Color? textColor;
         child: Center(
           child: Text(
             text,
-            style: GoogleFonts.montserrat(
-              color: textColor ?? Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
+            style: GoogleFonts.poppins(
+              color: textColor ?? AppColors.lightBackground,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),
