@@ -22,7 +22,7 @@ class _SplashViewState extends State<SplashView> {
   }
 
   Future<void> _checkAuth() async {
-    await Future.delayed(const Duration(seconds: 1)); // Add delay for splash effect
+    await Future.delayed(const Duration(seconds: 2)); // Add delay for splash effect
 
     final response = await _authService.getProfile();
     /*debugPrint("*************************************************************************************************************************************");
@@ -45,41 +45,40 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    print(
+   /* 
+   print(
         '****************************************************************************************************');
     print(MediaQuery.of(context).size.height);
     print(
         '****************************************************************************************************');
-
+*/
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.symmetric(horizontal: 18),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "FIT",
-                  style:GoogleFonts.poppins(
-                    color: AppColors.purpleColor,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
+      body: Container(
+        //height: MediaQuery.of(context).size.height,
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "FIT",
+                style:GoogleFonts.poppins(
+                  color: AppColors.purpleColor,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
                 ),
-                //Icon(Icons.fitness_center, color: AppColors.purpleColor, size: 70.0),
-                Image.asset("assets/images/dumbell_logo.png"),
-                Text(
-                  "CONNECT",
-                  style: GoogleFonts.poppins(
-                    color: AppColors.purpleColor,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                  ),
+              ),
+              //Icon(Icons.fitness_center, color: AppColors.purpleColor, size: 70.0),
+              Image.asset("assets/images/dumbell_logo.png"),
+              Text(
+                "CONNECT",
+                style: GoogleFonts.poppins(
+                  color: AppColors.purpleColor,
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pfe_coashing_app/auth/sign_in_view.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
+import 'package:pfe_coashing_app/home/map_view.dart';
 import 'package:pfe_coashing_app/services/auth_service.dart';
 
 class HomeView extends StatefulWidget {
@@ -63,7 +64,21 @@ class _HomeViewState extends State<HomeView> {
                   : AppColors.darkBackground,
               size: 22,
             ),
-          )
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MapScreen(),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.map,
+              color: AppColors.purpleColor,
+            ),
+          ),
         ],
       ),
       body: Center(

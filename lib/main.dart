@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pfe_coashing_app/auth/sign_in_view.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
 import 'package:pfe_coashing_app/global/global_controller.dart';
 import 'package:pfe_coashing_app/services/storage_service.dart';
@@ -29,7 +30,7 @@ class PfeCoashingApp extends StatelessWidget {
         brightness: Brightness.light,
         primaryColor: AppColors.purpleColor,
         scaffoldBackgroundColor: AppColors.lightBackground,
-        textTheme: GoogleFonts.montserratTextTheme(
+        textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme,
         ),
       ),
@@ -37,7 +38,7 @@ class PfeCoashingApp extends StatelessWidget {
         brightness: Brightness.dark,
         primaryColor: AppColors.purpleColor,
         scaffoldBackgroundColor: AppColors.darkBackground,
-        textTheme: GoogleFonts.montserratTextTheme(
+        textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme.apply(bodyColor: Colors.white),
         ),
       ),

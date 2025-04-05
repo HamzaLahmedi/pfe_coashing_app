@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:dio/dio.dart' as dio;
-import 'package:pfe_coashing_app/services/global/api_errorHandler.dart';
+import 'package:pfe_coashing_app/services/global/api_error_handler.dart';
 import 'package:pfe_coashing_app/services/global/api_response.dart';
 import 'package:pfe_coashing_app/global/global_controller.dart';
 
@@ -19,7 +19,7 @@ class APIRequest {
   static final dio.Dio dioInstance = dio.Dio();
   final APIErrorHandler _errorHandler = APIErrorHandler();
   
-  static String get API {
+  static String get api {
     String api = const String.fromEnvironment('API_URL', defaultValue: 'http://localhost:1337/api');
     if (api.contains('localhost')) {
       if (Platform.isAndroid) {
@@ -80,7 +80,7 @@ class APIRequest {
     );
 
     return await dioInstance.request(
-      '$API$path',
+      '$api$path',
       data: body,
       queryParameters: queryParams,
       options: options,
