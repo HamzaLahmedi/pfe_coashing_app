@@ -17,15 +17,15 @@ class GymsService {
         final List<dynamic> gymsData = jsonResponse['data'];
 
         return gymsData.map((gym) {
-          final address = gym['address'];
+          //final address = gym['address'];
           return Gym(
             id: gym['id'],
             documentId: gym['documentId'],
             name: gym['name'] ?? '',
             // Use address if available, otherwise default to 0,0
-            lat: address?['lat']?.toDouble() ?? 0.0,
-            long: address?['long']?.toDouble() ?? 0.0,
-            description: 'ID: ${gym['documentId']}',
+            lat: gym['lat']?.toDouble() ?? 0.0,
+            long: gym['long']?.toDouble() ?? 0.0,
+            description: 'description: ${gym['description'] ?? ''}',
           );
         }).toList();
       } else {

@@ -64,7 +64,21 @@ class _MapScreenState extends State<MapScreen> {
       final loadedGyms = await _gymService.fetchGyms();
     
       gyms = loadedGyms;
-      print("loadedddddddddddddddd gyms: ${loadedGyms.length}");
+      print("loadedddddddddddddddd gyms: ${gyms.length}");
+      if (gyms.isNotEmpty) {
+       /* print("loadedddddddddddddddd gyms: ${gyms[0].name}");
+        print("loadedddddddddddddddd gyms: ${gyms[1].name}");
+        print("loadedddddddddddddddd gyms: ${gyms[2].name}");
+        print("deeeeeeeeeeeeeeeeeeeeeesc gyms: ${gyms[1].description}");
+        print("laaaaaaaaaaaaaaaat gyms: ${gyms[0].lat}");
+        print("loooooooooooooooooooooooong gyms: ${gyms[0].long}");
+        print("laaaaaaaaaaaaaaaaat gyms: ${gyms[1].lat}");
+        print("loooooooooooooooong gyms: ${gyms[1].long}");
+        print("laaaaaaaaaaaaaaaaaaaat gyms: ${gyms[2].lat}");
+        print("looooooooooooong gyms: ${gyms[2].long}");*/
+      } else {
+        print("No gyms found.");
+      }
     
       setState(() => print("updated"));
 
@@ -141,7 +155,7 @@ class _MapScreenState extends State<MapScreen> {
                   height: 80,
                   child: Icon(Icons.my_location_rounded, color: Colors.blue, size: 40),
                 ),
-              // Add markers for complexes
+              // Add markers for gyms
               ...gyms.map(
                 (gym) => Marker(
                   point: LatLng(gym.lat, gym.long),
