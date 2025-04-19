@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pfe_coashing_app/core/utils/color.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_progress_indicator.dart';
+import 'package:pfe_coashing_app/home/edit_profile_view.dart';
 import 'package:pfe_coashing_app/home/widgets/profile_body_view.dart';
 import 'package:pfe_coashing_app/models/user.dart';
 import 'package:pfe_coashing_app/services/auth_service.dart';
@@ -35,6 +37,8 @@ class _ProfileViewState extends State<ProfileView> {
     });
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -42,6 +46,34 @@ class _ProfileViewState extends State<ProfileView> {
 
     return SafeArea(
       child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: colorScheme.brightness == Brightness.dark
+                ? AppColors.darkBackground
+                : AppColors.lightBackground,
+            title: Text(
+              'Profile',
+              style: TextStyle(
+                color: colorScheme.brightness == Brightness.dark
+                    ? AppColors.lightBackground
+                    : AppColors.darkBackground,
+                fontSize: 22,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            actions: [
+              IconButton(
+                icon: const Icon(
+                  Icons.edit,
+                  color: AppColors.purpleColor,
+                ),
+                onPressed: () async {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) =>  EditProfileView(),
+                  ));
+                },
+              ),
+            ],
+          ),
           body: _isLoading
               ? const Center(
                   child: CustomProgressIndicator(),
@@ -61,5 +93,3 @@ class _ProfileViewState extends State<ProfileView> {
     );
   }
 }
-
-

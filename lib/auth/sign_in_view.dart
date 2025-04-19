@@ -43,9 +43,11 @@ class _SignInViewState extends State<SignInView> {
           ),
         );
       } else {
+        if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(result.errorMessage ?? 'Login failed')),
         );
+      }
       }
     } finally {
       setState(() => _isLoading = false);
