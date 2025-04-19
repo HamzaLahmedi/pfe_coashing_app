@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pfe_coashing_app/auth/sign_in_view.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
+import 'package:pfe_coashing_app/home/chat_bot.dart';
 import 'package:pfe_coashing_app/home/map_view.dart';
 import 'package:pfe_coashing_app/services/auth_service.dart';
 
@@ -30,6 +31,21 @@ class _HomeViewState extends State<HomeView> {
     // final FirebaseAuthService auth = FirebaseAuthService();
     final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ChatBotView(),
+            ),
+          );
+        },
+        backgroundColor: AppColors.purpleColor,
+        child: const Icon(
+          Icons.message,
+          color: Colors.white,
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: colorScheme.brightness == Brightness.dark
             ? AppColors.darkBackground

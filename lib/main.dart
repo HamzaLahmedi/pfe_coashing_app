@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pfe_coashing_app/auth/sign_in_view.dart';
 import 'package:pfe_coashing_app/core/utils/color.dart';
@@ -7,7 +9,10 @@ import 'package:pfe_coashing_app/services/storage_service.dart';
 import 'package:pfe_coashing_app/splash_screen/splash_view.dart';
 
 void main() async {
+  // Ensure Flutter bindings are initialized
   WidgetsFlutterBinding.ensureInitialized();
+  
+
   // Initialize StorageService
   await StorageService.init();
   // Initialize token from storage if available
@@ -15,6 +20,7 @@ void main() async {
   if (storedToken != null) {
     GlobalController.token = storedToken;
   }
+  await dotenv.load(fileName: ".env");
   runApp(const PfeCoashingApp());
 }
 
