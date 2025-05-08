@@ -42,7 +42,7 @@ class AuthService {
   }
 
   Future<APIResponse> register(String username, String email, String password,
-      double height, double weight) async {
+      double height, double weight, Role role) async {
     try {
       final response = await _api.getAPIRequest(
         method: APIMethod.post,
@@ -52,10 +52,11 @@ class AuthService {
           'email': email,
           'password': password,
           'height': height,
-          'weight': weight
+          'weight': weight,
+          'userRole': role.toString().split('.').last, // Add the role field
         },
       );
-
+      
       if (!response.isError && response.data != null) {
         final String? token = response.data['jwt'];
         if (token != null) {
@@ -66,6 +67,7 @@ class AuthService {
           // If user data is available in response, store it
           if (response.data['user'] != null) {
             GlobalController.currentUser = User.fromJson(response.data['user']);
+            UserProvider.user =  GlobalController.currentUser;
           }
         } else {
           print('Register error: ${response.errorMessage}');
@@ -78,6 +80,8 @@ class AuthService {
           isError: true, errorMessage: e.toString(), status: null);
     }
   }
+
+
 
   Future<APIResponse> getProfile() async {
     try {
@@ -97,91 +101,88 @@ class AuthService {
     }
   }
 
-  
   Future<APIResponse> getCurrentUser() async {
-  try {
-    final response = await _api.getAPIRequest(
-      method: APIMethod.get,
-      path: '/users/me',
-    );
-
-    if (!response.isError && response.data != null) {
-      // Parse and store the user data
-      final user = User.fromJson(response.data);
-      GlobalController.currentUser = user;
-      UserProvider.user = user;
-
-      // Return the User object in the APIResponse
-      return APIResponse(
-        isError: false,
-        data: user,
-        status: response.status,
+    try {
+      final response = await _api.getAPIRequest(
+        method: APIMethod.get,
+        path: '/users/me',
       );
-    }
 
-    return APIResponse(
-      isError: true,
-      errorMessage: response.errorMessage ?? 'Failed to fetch user data',
-      status: response.status,
-    );
-  } catch (e) {
-    return APIResponse(
-      isError: true,
-      errorMessage: e.toString(),
-      status: null,
-    );
-  }
-}
+      if (!response.isError && response.data != null) {
+        // Parse and store the user data
+        final user = User.fromJson(response.data);
+        GlobalController.currentUser = user;
+        UserProvider.user = user;
 
-Future<APIResponse> updateProfile(Map<String, dynamic> userData) async {
-  try {
-    final token = GlobalController.token; // Retrieve the token
-    if (token == null) {
+        // Return the User object in the APIResponse
+        return APIResponse(
+          isError: false,
+          data: user,
+          status: response.status,
+        );
+      }
+
       return APIResponse(
         isError: true,
-        errorMessage: 'Unauthorized: No token found',
-        status: 401,
-      );
-    }
-
-    
-
-    final response = await _api.getAPIRequest(
-      method: APIMethod.put,
-      path: '/users/${UserProvider.user!.id}',
-      body: userData,
-      headers: {
-        'Authorization': 'Bearer $token', // Include the token in the headers
-      },
-    );
-
-    if (!response.isError && response.data != null) {
-      final updatedUser = User.fromJson(response.data);
-
-      // Update the global and provider user data
-      UserProvider.user = updatedUser;
-      GlobalController.currentUser = updatedUser;
-
-      return APIResponse(
-        isError: false,
-        data: updatedUser,
+        errorMessage: response.errorMessage ?? 'Failed to fetch user data',
         status: response.status,
       );
+    } catch (e) {
+      return APIResponse(
+        isError: true,
+        errorMessage: e.toString(),
+        status: null,
+      );
     }
-
-    return APIResponse(
-      isError: true,
-      errorMessage: response.errorMessage ?? 'Failed to update profile',
-      status: response.status,
-    );
-  } catch (e) {
-    return APIResponse(
-      isError: true,
-      errorMessage: e.toString(),
-      status: null,
-    );
   }
-}
+
+  Future<APIResponse> updateProfile(Map<String, dynamic> userData) async {
+    try {
+      final token = GlobalController.token; // Retrieve the token
+      if (token == null) {
+        return APIResponse(
+          isError: true,
+          errorMessage: 'Unauthorized: No token found',
+          status: 401,
+        );
+      }
+
+      final response = await _api.getAPIRequest(
+        method: APIMethod.put,
+        path: '/users/${UserProvider.user!.id}',
+        body: userData,
+        headers: {
+          'Authorization': 'Bearer $token', // Include the token in the headers
+        },
+      );
+
+      if (!response.isError && response.data != null) {
+        final updatedUser = User.fromJson(response.data);
+
+        // Update the global and provider user data
+        UserProvider.user = updatedUser;
+        GlobalController.currentUser = updatedUser;
+
+        return APIResponse(
+          isError: false,
+          data: updatedUser,
+          status: response.status,
+        );
+      }
+
+      return APIResponse(
+        isError: true,
+        errorMessage: response.errorMessage ?? 'Failed to update profile',
+        status: response.status,
+      );
+    } catch (e) {
+      return APIResponse(
+        isError: true,
+        errorMessage: e.toString(),
+        status: null,
+      );
+    }
+  }
 
   Future<void> logout() async {
     await StorageService.removeToken();

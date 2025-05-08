@@ -14,6 +14,7 @@ class ProfileBodyView extends StatelessWidget {
     required this.email,
     required this.height,
     required this.weight,
+    required this.role,
   });
 
   final double heigthScreen;
@@ -23,6 +24,7 @@ class ProfileBodyView extends StatelessWidget {
   final String email;
   final String height;
   final String weight;
+  final String role;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ class ProfileBodyView extends StatelessWidget {
           ),
           Center(
             child: Text(
-              "Fitness Athlete",
+              "Fitness $role",
               style: TextStyles.regular12Style,
             ),
           ),

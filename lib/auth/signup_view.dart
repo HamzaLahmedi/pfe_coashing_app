@@ -7,6 +7,7 @@ import 'package:pfe_coashing_app/core/widgets/custom_elevated_button.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_progress_indicator.dart';
 import 'package:pfe_coashing_app/core/widgets/custom_text_field.dart';
 import 'package:pfe_coashing_app/home/navigation.dart';
+import 'package:pfe_coashing_app/models/user.dart';
 import 'package:pfe_coashing_app/services/auth_service.dart';
 
 class SignupView extends StatefulWidget {
@@ -18,6 +19,7 @@ class SignupView extends StatefulWidget {
 
 class _SignupViewState extends State<SignupView> {
   final _formKey = GlobalKey<FormState>();
+  Role selectedRole = Role.athlete; // Default role
   final TextEditingController _usernameController = TextEditingController();
 
   final TextEditingController _heightController = TextEditingController();
@@ -38,6 +40,7 @@ class _SignupViewState extends State<SignupView> {
         _passwordController.text,
         double.parse(_heightController.text),
         double.parse(_weightController.text),
+        selectedRole, // Pass the selected role
       );
 
       if (!result.isError) {
@@ -161,7 +164,37 @@ class _SignupViewState extends State<SignupView> {
                             },
                           ),
                           SizedBox(
-                            height: 8,
+                            height: 18,
+                          ),
+                          DropdownButtonFormField<Role>(
+                            //dropdownColor: AppColors.purpleColor,
+                            //itemHeight: 99,
+
+                            value: selectedRole,
+                            decoration: const InputDecoration(
+                              labelText: 'Role',
+                            ),
+                            //icon: const Icon(Icons.arrow_drop_down),
+                            items: Role.values.map((Role role) {
+                              return DropdownMenuItem<Role>(
+                                value: role,
+                                child: Text(role.toString().split('.').last),
+                              );
+                            }).toList(),
+                            onChanged: (Role? newValue) {
+                              setState(() {
+                                selectedRole = newValue!;
+                              });
+                            },
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Please select a role';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(
+                            height: 18,
                           ),
                           CustomTextField(
                             labelText: "Email",

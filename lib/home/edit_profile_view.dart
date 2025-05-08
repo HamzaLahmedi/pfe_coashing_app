@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pfe_coashing_app/core/utils/show_flash_bar.dart';
 import 'package:pfe_coashing_app/core/utils/validator.dart'; // Import ValidationUtils
+import 'package:pfe_coashing_app/home/navigation.dart';
 import 'package:pfe_coashing_app/models/user.dart';
 import 'package:pfe_coashing_app/services/auth_service.dart';
 
@@ -38,8 +39,8 @@ class _EditProfileViewState extends State<EditProfileView> {
 
         // Populate the controllers with user data
         _userNameController.text = _userData?.username ?? '';
-        _heightController.text = _userData?.height?.toString() ?? '';
-        _weightController.text = _userData?.weight?.toString() ?? '';
+        _heightController.text = _userData?.height.toString() ?? '';
+        _weightController.text = _userData?.weight.toString() ?? '';
         _emailController.text = _userData?.email ?? '';
       });
     } else {
@@ -68,7 +69,12 @@ class _EditProfileViewState extends State<EditProfileView> {
           _isEditing = false;
           _userData = response.data; // Use the updated User object
         });
+        Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context) => const Navigation(), // Navigate to ProfileView after saving
+        ));
         showFlushBar(context, message: 'Profile updated successfully', success: true);
+        
+      
       } else {
         showFlushBar(context, message: response.errorMessage ?? 'Failed to update profile', success: false);
       }
@@ -86,8 +92,8 @@ class _EditProfileViewState extends State<EditProfileView> {
       if (!_isEditing) {
         // Reset fields to original data if editing is canceled
         _userNameController.text = _userData?.username ?? '';
-        _heightController.text = _userData?.height?.toString() ?? '';
-        _weightController.text = _userData?.weight?.toString() ?? '';
+        _heightController.text = _userData?.height.toString() ?? '';
+        _weightController.text = _userData?.weight.toString() ?? '';
         _emailController.text = _userData?.email ?? '';
       }
     });
@@ -134,6 +140,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                           return null;
                         },
                       ),
+
                       TextFormField(
                         controller: _heightController,
                         decoration: const InputDecoration(
@@ -150,6 +157,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                         enabled: _isEditing,
                         validator: ValidationUtils.validateWeight, // Use ValidationUtils
                       ),
+                      
                       TextFormField(
                         controller: _emailController,
                         decoration: const InputDecoration(

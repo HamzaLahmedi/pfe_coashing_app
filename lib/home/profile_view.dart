@@ -89,6 +89,7 @@ class _ProfileViewState extends State<ProfileView> {
                       userName: _user!.username,
                       height: _user!.height.toString(),
                       weight: _user!.weight.toString(),
+                      role: _user!.role.toString().split('.').last,
                     )),
     );
   }

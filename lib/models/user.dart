@@ -1,4 +1,4 @@
-
+enum Role { athlete, coach }
 class User {
   final int id;
   final String documentId;
@@ -13,7 +13,7 @@ class User {
   final double height;
   final double weight;
   final String? name;
-
+  final Role role;
   User({
     required this.id,
     required this.documentId,
@@ -28,6 +28,7 @@ class User {
     required this.height,
     required this.weight,
     required this.name,
+    required this.role,
   });
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -44,7 +45,10 @@ class User {
       updatedAt: DateTime.parse(json['updatedAt']),
       publishedAt: DateTime.parse(json['publishedAt']),
       name: json['name'],
-      
+      role:Role.values.firstWhere(
+        (e) => e.toString().split('.').last == json['userRole'],
+        orElse: () => Role.athlete, // Default to Athlete if role is missing
+      ),
     );
   }
 }
